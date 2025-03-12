@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ProfilePhotoSelector from "../../components/input/ProfilePhotoSelector";
 import AuthInput from "../../components/input/AuthInput";
 import { Link } from "react-router-dom";
+import { validateEmail } from "../../utils/helper";
 const SignUpForm = () => {
   const [profilePic, setProfilePic] = useState(null);
   const [fullName, setFullName] = useState("");
@@ -14,7 +15,30 @@ const SignUpForm = () => {
   const navigate = useNavigate(null);
 
   //handle Sign Up From submit
-  const handleSignUp = async () => { };
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    if (!fullName) {
+      setError("Please enter your full name");
+      return;
+    }
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address");
+      return;
+    }
+    if (!username) {
+      setError("Please eneter your username");
+      return;
+    }
+    if (!password) {
+      setError("Please eneter your password");
+      return;
+    }
+    setError("");
+
+    //Sign Up API
+    try {
+    } catch (err) { }
+  };
   return (
     <AuthLayout>
       <div className="lg:w-[100%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center">
