@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import AuthLayout from "../../components/layout/AuthLayout";
 import { useNavigate } from "react-router-dom";
 import ProfilePhotoSelector from "../../components/input/ProfilePhotoSelector";
+import AuthInput from "../../components/input/AuthInput";
+import { Link } from "react-router-dom";
 const SignUpForm = () => {
   const [profilePic, setProfilePic] = useState(null);
   const [fullName, setFullName] = useState("");
@@ -12,7 +14,7 @@ const SignUpForm = () => {
   const navigate = useNavigate(null);
 
   //handle Sign Up From submit
-  const handleSignUp = async () => {};
+  const handleSignUp = async () => { };
   return (
     <AuthLayout>
       <div className="lg:w-[100%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center">
@@ -22,6 +24,46 @@ const SignUpForm = () => {
         </p>
         <form action="" onSubmit={handleSignUp}>
           <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <AuthInput value={fullName} onChange={({ target }) => setFullName(target.value)}
+              label="Full Name"
+              placeholder="John" type="text" />
+            <AuthInput
+              value={email}
+              onChange={({ target }) => setEmail(target.value)}
+              label="Email Address"
+              placeholder="jannoelpaed@example.com"
+              type="text"
+            />
+            <AuthInput
+              value={username}
+              onChange={({ target }) => setUserName(target.value)}
+              label="Username"
+              placeholder="@"
+              type="text"
+            />
+            <AuthInput
+              value={password}
+              onChange={({ target }) => setPassword(target.value)}
+              label="Password"
+              placeholder="Min 8 Characters"
+              type="password"
+            />
+
+
+          </div>
+          {error && <p className="text-red-500 text text-xs pb-2.5">{error}</p>}
+
+          <button type="submit" className="btn-primary">
+            CREATE ACCOUNT
+          </button>
+          <p className="text-sm text-slate-800 mt-3">
+            Already have an account?{""}
+            <Link className="font-medium text-cyan-400 underline " to="/login">
+              Login
+            </Link>
+          </p>
         </form>
       </div>
     </AuthLayout>
