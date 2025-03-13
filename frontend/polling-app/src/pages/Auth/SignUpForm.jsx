@@ -63,8 +63,8 @@ const SignUpForm = () => {
             <AuthInput
               value={username}
               onChange={({ target }) => setUserName(target.value)}
-              label="Username"
-              placeholder="@"
+              label="School ID"
+              placeholder="19-5590-946"
               type="text"
             />
             <AuthInput
