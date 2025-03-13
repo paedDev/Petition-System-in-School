@@ -19,14 +19,14 @@ const LoginForm = () => {
       return;
     }
     if (!password) {
-      setError("Please eneter the password");
+      setError("Please enter the password");
       return;
     }
     setError("");
 
     //Login API
     try {
-    } catch (err) {}
+    } catch (err) { }
   };
   return (
     <AuthLayout>

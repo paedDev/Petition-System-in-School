@@ -26,11 +26,11 @@ const SignUpForm = () => {
       return;
     }
     if (!username) {
-      setError("Please eneter your username");
+      setError("Please enter your username");
       return;
     }
     if (!password) {
-      setError("Please eneter your password");
+      setError("Please enter your password");
       return;
     }
     setError("");
