@@ -7,7 +7,7 @@ const generateToken = (id) => {
     return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn:"1h"})
 }
 
-const registerUser = async(req,res) =>{ 
+export const registerUser = async(req,res) =>{ 
     const {fullName,username,email,password,profileImageUrl} = req.body;
 
 
@@ -61,5 +61,54 @@ const registerUser = async(req,res) =>{
         .json({message: "Error registering user", error: error.message})
     }
 }
-
-export default registerUser;
+export const loginUser = async(req,res) =>{
+    const {email,password} = req.body;
+     // validation check for missing fields
+     if (!email || !password) {
+        return res.status(400).json({message: "All fields are required"})
+    }
+    try {
+        const user = await User.findOne({email})
+        if (!user || !(await user.comparePassword(password))){
+            return res.status(400).json({message: "Invalid credentials"})
+        }
+        res
+        .status(200)
+        .json({
+            id:user._id,
+            user:{
+                ...user.toObject(),
+                totalPollsCreated : 0,
+                totalPollsVotes: 0,
+                totalPollsBookMarked: 0,
+            },
+            token:generateToken(user._id),
+        })
+    } catch (error) {
+        res
+        .status(500)
+        .json({message: "Error registering user", error: error.message})
+    }
+}
+export const getUserInfo = async(req,res) =>{
+    try {
+        const user = await User.findById(req.user.id).select("-password")
+        
+        if(!user){
+            return res.status(404).json({message: "User not found"})
+        }
+        // add the new att to the response
+        const userInfo ={
+            ...user.toObject(),
+            totalPollsCreated:0,
+            totalPollsVotes:0,
+            totalPollsBookMarked:0,
+        }
+        res.status(200).json(userInfo)
+    } catch (error) {
+        res
+        .status(500)
+        .json({message: "Error registering user", error: error.message})
+    }
+}
+  

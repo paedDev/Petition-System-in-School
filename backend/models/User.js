@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema({
     fullName : {type: String, required:true},
     email : {type: String, required:true, unique:true},
     password : {type: String, required:true},
-    profileImageURl : {type: String, default:null},
+    profileImageUrl: {type: String, default: null}, 
     bookmarkedPolls: [{type: mongoose.Schema.Types.ObjectId, ref:"Poll"}],
 },{timestamps:true})
 
