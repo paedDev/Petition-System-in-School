@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AuthLayout from "../../components/layout/AuthLayout";
 import { useNavigate } from "react-router-dom";
 import ProfilePhotoSelector from "../../components/input/ProfilePhotoSelector";
 import AuthInput from "../../components/input/AuthInput";
 import { Link } from "react-router-dom";
 import { validateEmail } from "../../utils/helper";
+import { UserContext } from "../../context/UserContext";
+import axiosInstance from "../../utils/axiosInstance";
+import { API_PATHS } from "../../utils/apiPaths";
+import uploadImage from "../../utils/uploadImage.js";
 const SignUpForm = () => {
   const [profilePic, setProfilePic] = useState(null);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [username, setUserName] = useState("");
+  const [userID, setuserID] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const { updateUser } = useContext(UserContext);
   const navigate = useNavigate(null);
 
   //handle Sign Up From submit
@@ -25,8 +30,8 @@ const SignUpForm = () => {
       setError("Please enter a valid email address");
       return;
     }
-    if (!username) {
-      setError("Please enter your username");
+    if (!userID) {
+      setError("Please enter your userID");
       return;
     }
     if (!password) {
@@ -34,10 +39,35 @@ const SignUpForm = () => {
       return;
     }
     setError("");
-
+    let profileImageUrl = "";
     //Sign Up API
     try {
-    } catch (err) { }
+      //upload image
+      if (profilePic) {
+        const imgUploadRes = await uploadImage(profilePic);
+        profileImageUrl = imgUploadRes.imageUrl || "";
+      }
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
+        fullName,
+        userID,
+        email,
+        password,
+        profileImageUrl,
+      });
+      const { token, user } = response.data;
+      if (token) {
+        localStorage.setItem('token', token);
+        updateUser(user);
+        navigate("/login");
+      }
+
+    } catch (err) {
+      if (err.response && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Something went wrong. Please try again");
+      }
+    }
   };
   return (
     <AuthLayout>
@@ -61,8 +91,8 @@ const SignUpForm = () => {
               type="text"
             />
             <AuthInput
-              value={username}
-              onChange={({ target }) => setUserName(target.value)}
+              value={userID}
+              onChange={({ target }) => setuserID(target.value)}
               label="School ID"
               placeholder="19-5590-946"
               type="text"

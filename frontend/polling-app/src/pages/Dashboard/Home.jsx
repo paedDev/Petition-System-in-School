@@ -1,7 +1,12 @@
 import React from "react";
-
+import DashboardLayout from "../../components/layout/DashboardLayout";
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <DashboardLayout activeMenu="Home" >
+      <div>Home</div>
+    </DashboardLayout>
+  );
+
 };
 
 export default Home;

@@ -12,21 +12,24 @@ import CreatePoll from "./pages/Dashboard/CreatePoll";
 import MyPolls from "./pages/Dashboard/MyPolls";
 import VotedPolls from "./pages/Dashboard/VotedPolls";
 import BookMarks from "./pages/Dashboard/BookMarks";
+import UserProvider from "./context/UserContext";
 const App = () => {
   return (
     <div>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Root />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/signup" element={<SignUpForm />} />
-          <Route path="/dashboard" element={<Home />} />
-          <Route path="/create-poll" element={<CreatePoll />} />
-          <Route path="/my-poll" element={<MyPolls />} />
-          <Route path="/voted-poll" element={<VotedPolls />} />
-          <Route path="/bookmarks" element={<BookMarks />} />
-        </Routes>
-      </Router>
+      <UserProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Root />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/signup" element={<SignUpForm />} />
+            <Route path="/dashboard" element={<Home />} />
+            <Route path="/create-poll" element={<CreatePoll />} />
+            <Route path="/my-poll" element={<MyPolls />} />
+            <Route path="/voted-poll" element={<VotedPolls />} />
+            <Route path="/bookmarks" element={<BookMarks />} />
+          </Routes>
+        </Router>
+      </UserProvider>
     </div>
   );
 };

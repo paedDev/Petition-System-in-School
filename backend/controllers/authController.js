@@ -8,20 +8,20 @@ const generateToken = (id) => {
 }
 
 export const registerUser = async(req,res) =>{ 
-    const {fullName,username,email,password,profileImageUrl} = req.body;
+    const {fullName,userID,email,password,profileImageUrl} = req.body;
 
 
     // validation check for missing fields
-    if (!fullName || !username || !email || !password) {
+    if (!fullName || !userID || !email || !password) {
         return res.status(400).json({message: "All fields are required"})
 
         
     }
-    // validation check username format
+    // validation check userID format
     // Allows numbers charharcers and hyphens
 
-    const usernameRegex = /^[a-zA-Z0-9-]+$/
-    if (!usernameRegex.test(username)){
+    const userIDRegex = /^[a-zA-Z0-9-]+$/
+    if (!userIDRegex.test(userID)){
         return res.status(400).json({
             message: 
             "Invalid ID. Only alphanumeric characters and hyphens are allowed. No spaces are permitted. "
@@ -34,8 +34,8 @@ export const registerUser = async(req,res) =>{
         if(existingUser) {
             return res.status(400).json({message: "Email already in use"})
         }
-        const existingUsername = await User.findOne({username})
-        if (existingUsername) {
+        const existinguserID = await User.findOne({userID})
+        if (existinguserID) {
             return res
             .status(400)
             .json({message: "ID not available. Use your school ID"})
@@ -43,7 +43,7 @@ export const registerUser = async(req,res) =>{
         
         const user = await User.create({
             fullName,
-            username,
+            userID,
             email,
             password,
             profileImageUrl,
