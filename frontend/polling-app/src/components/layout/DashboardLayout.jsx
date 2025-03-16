@@ -7,8 +7,8 @@ const DashboardLayout = ({ children, activeMenu }) => {
     const { user } = useContext(UserContext);
     return (
         <div>
-            <Navbar />
-            <div className='flex'>
+            <Navbar activeMenu={activeMenu} />
+            {user && (<div className='flex'>
                 <div className='max-[1080px]:hidden'>
                     <SideMenu activeMenu={activeMenu} />
                 </div>
@@ -21,12 +21,12 @@ const DashboardLayout = ({ children, activeMenu }) => {
                         profileImageUrl={user && user.profileImageUrl}
                         fullname={user && user.fullName}
                         userID={user && user.userID}
-                        totalPollsVoted={user && user.totalPollsVoted}
+                        totalPollsVotes={user && user.totalPollsVotes}
                         totalPollsCreated={user && user.totalPollsCreated}
                         totalPollsBookmarked={user && user.totalPollsBookmarked}
                     />
                 </div>
-            </div>
+            </div>)}
         </div>
     );
 };

@@ -9,7 +9,7 @@ export const SIDE_MENU_DATA = [
     },
     {
         id:"02",
-        label: "Create Poll",
+        label: "Create Petition",
         icon: LuVote,
         path: "/create-poll"
     },
@@ -36,5 +36,23 @@ export const SIDE_MENU_DATA = [
         label: "Logout",
         icon: LuLogOut,
         path: "logout"
+    },
+]
+
+export const POLL_TYPE = [
+    {
+        id:"01", label:"Yes/No", value: "Yes/No"
+    },
+    {
+        id:"02", label:"Single Choice", value: "single-choice"
+    },
+    {
+        id:"03", label:"Rating", value: "rating"
+    },
+    {
+        id:"04", label:"Image Based", value: "image-based"
+    },
+    {
+        id:"05", label:"Open ended", value: "open-ended"
     },
 ]
