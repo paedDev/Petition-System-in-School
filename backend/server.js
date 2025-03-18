@@ -5,6 +5,7 @@ import authRoutes from "./routes/authRoutes.js"
 import connectDB from "./config/db.js"
 import path from "path"
 import { fileURLToPath } from "url";
+import pollRoutes from "./routes/pollRoutes.js"
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express()
@@ -23,6 +24,7 @@ app.use(express.json())
 connectDB()
 
 app.use("/api/v1/auth",authRoutes)
+app.use("/api/v1/poll",pollRoutes)
 
 // upload folder
 app.use("/uploads",express.static(path.join(__dirname,"uploads")))
