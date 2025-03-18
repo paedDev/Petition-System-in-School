@@ -8,7 +8,7 @@ export const createPoll = async (req,res) => {
     if (!question || !type || !creatorId){
         return res
         .status(400)
-        .json({message:" Question,type, and creatorId are required"})
+        .json({message:"Question, type, and creatorId are required"})
     }
 
     try {
@@ -23,7 +23,7 @@ export const createPoll = async (req,res) => {
                 processedOption = option.map((opt) => ({optionText:opt}));
                 break;
 
-                case "open-ended" :
+                case "open-ended":
                 processedOption = [];
                 break;
                 default:

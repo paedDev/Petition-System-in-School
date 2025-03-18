@@ -1,5 +1,5 @@
 
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const PollSchema = new mongoose.Schema({
     question : {type: String, required:true},
@@ -7,7 +7,7 @@ const PollSchema = new mongoose.Schema({
     option: [
         {
             optionText:{type:String,required:true},
-            votes:{type:String, default:0}, 
+            votes:{type:Number, default:0}, 
             //for vote tracking
         },
     ],
