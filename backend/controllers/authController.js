@@ -1,6 +1,7 @@
 import User from "../models/User.js"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcryptjs"
+import Poll from "../models/Poll.js";
 
 
 const generateToken = (id) => {
@@ -72,15 +73,21 @@ export const loginUser = async(req,res) =>{
         if (!user || !(await user.comparePassword(password))){
             return res.status(400).json({message: "Invalid credentials"})
         }
+        const totalPollsCreated = await Poll.countDocuments({creator:user._id})
+
+        const totalPollsVotes = await Poll.countDocuments({voters:user._id})
+
+        const totalPollsBookMarked = user.bookmarkedPolls.length;
+
         res
         .status(200)
         .json({
             id:user._id,
             user:{
                 ...user.toObject(),
-                totalPollsCreated : 0,
-                totalPollsVotes: 0,
-                totalPollsBookMarked: 0,
+                totalPollsCreated,
+                totalPollsVotes,
+                totalPollsBookMarked,
             },
             token:generateToken(user._id),
         })
@@ -97,12 +104,17 @@ export const getUserInfo = async(req,res) =>{
         if(!user){
             return res.status(404).json({message: "User not found"})
         }
+        const totalPollsCreated = await Poll.countDocuments({creator:user._id})
+
+        const totalPollsVotes = await Poll.countDocuments({voters:user._id})
+
+        const totalPollsBookMarked = user.bookmarkedPolls.length;
         // add the new att to the response
         const userInfo ={
             ...user.toObject(),
-            totalPollsCreated:0,
-            totalPollsVotes:0,
-            totalPollsBookMarked:0,
+            totalPollsCreated,
+            totalPollsVotes,
+            totalPollsBookMarked,
         }
         res.status(200).json(userInfo)
     } catch (error) {
