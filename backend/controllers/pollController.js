@@ -22,6 +22,27 @@ export const createPoll = async (req,res) => {
                 }
                 processedOption = option.map((opt) => ({optionText:opt}));
                 break;
+                
+                case "rating":
+                    processedOption =[1,2,3,4,5].map((value) => ({
+                        optionText: value.toString(),
+                    }));
+                    break;
+
+                case "yes/no":
+                    processedOption = ["Yes","No"].map((option) => ({
+                        optionText:option,
+                    }))
+                    break;
+
+                case "image-based":
+                    if(!option || option.length < 2) {
+                        return res.status(400).json({
+                            message : "Image-based poll must have at least two image URLs"
+                        })
+                    }
+                    processedOption = option.map((url) => ({optionText:url}))
+                    break;
 
                 case "open-ended":
                 processedOption = [];
