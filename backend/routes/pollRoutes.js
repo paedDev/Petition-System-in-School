@@ -4,7 +4,7 @@ import {createPoll,getAllPolls,getVotedPolls,getPollById,voteOnPoll,closePoll,bo
 
 const router = express.Router();
 
-router.post("/create",protect,createPoll)
+router.post("/create", protect, createPoll);
 router.get("/getAllPolls",protect,getAllPolls)
 router.get("/votedPolls",protect,getVotedPolls)
 router.get("/:id",protect,getPollById)
