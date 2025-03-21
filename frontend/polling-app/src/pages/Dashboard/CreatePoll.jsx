@@ -92,6 +92,7 @@ const CreatePoll = () => {
         option: optionData,
         creatorId: user._id,
       });
+      console.log("Response from backend:", response);
 
       if (response) {
         toast.success("Poll Created Successfully");
@@ -103,9 +104,7 @@ const CreatePoll = () => {
         toast.error(error.response.data.message);
         handleValueChange("error", error.response.data.message);
       } else {
-
-        handleValueChange("error", "Something went wrong. Please try again.");
-
+        handleValueChange("error", error.response.data.message);
       }
     }
   };
@@ -124,7 +123,9 @@ const CreatePoll = () => {
             className="w-full text-[13px] text-black outline-none bg-slate-200/80 p-2 rounded-md mt-2"
             rows={4}
             value={pollData.question}
-            onChange={({ target }) => handleValueChange("question", target.value)}
+            onChange={({ target }) =>
+              handleValueChange("question", target.value)
+            }
           />
         </div>
 
@@ -136,10 +137,11 @@ const CreatePoll = () => {
             {POLL_TYPE.map((item) => (
               <div
                 key={item.value}
-                className={`option-chip ${pollData.type === item.value
-                  ? "text-white bg-green-400 border-green-300"
-                  : "border-sky-100"
-                  }`}
+                className={`option-chip ${
+                  pollData.type === item.value
+                    ? "text-white bg-green-400 border-green-300"
+                    : "border-sky-100"
+                }`}
                 onClick={() => handleValueChange("type", item.value)}
               >
                 {item.label}
@@ -171,7 +173,9 @@ const CreatePoll = () => {
             <div className="mt-3">
               <OptionImageSelector
                 imageList={pollData.imageOption}
-                setImageList={(value) => handleValueChange("imageOption", value)}
+                setImageList={(value) =>
+                  handleValueChange("imageOption", value)
+                }
               />
             </div>
           </div>
