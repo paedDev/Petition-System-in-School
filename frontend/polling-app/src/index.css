@@ -21,7 +21,10 @@
   .option-chip {
     @apply text-xs font-medium text-sky-700 bg-sky-100 px-4 py-1 rounded-lg border border-sky-50 cursor-pointer transition hover:border-green-800 duration-500;
   }
-  .btn-small{
-    @apply flex items-center gap-1 text-xs font-medium bg-green-400 text-white rounded hover:text-green-600  hover:bg-green-300 px-3 py-[4px]
+  .btn-small {
+    @apply flex items-center gap-1 text-xs font-medium bg-green-400 text-white rounded hover:text-green-600  hover:bg-green-300 px-3 py-[4px];
+  }
+  .icon-btn {
+    @apply text-[20px] text-slate-300 cursor-pointer hover:text-blue-500;
   }
 }

@@ -17,3 +17,7 @@ export const getInitials = (name) => {
 
   return initials.toUpperCase(); // Fixed incorrect method name
 };
+
+export const getPollBookmarked = (pollId, userBookmarks) => {
+  return userBookmarks.includes(pollId);
+};

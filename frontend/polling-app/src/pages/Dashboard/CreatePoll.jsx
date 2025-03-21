@@ -8,7 +8,7 @@ import OptionImageSelector from "../../components/input/OptionImageSelector";
 import axiosInstance from "../../utils/axiosInstance.js";
 import { API_PATHS } from "../../utils/apiPaths.js";
 import toast from "react-hot-toast";
-
+import uploadImage from "../../utils/uploadImage.js";
 const CreatePoll = () => {
   useUserAuth();
   const { user, onPollCreateOrDelete } = useContext(UserContext);
