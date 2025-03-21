@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 
 const CreatePoll = () => {
   useUserAuth();
-  const { user } = useContext(UserContext);
+  const { user, onPollCreateOrDelete } = useContext(UserContext);
 
   const [pollData, setPollData] = useState({
     question: "",
@@ -59,6 +59,7 @@ const CreatePoll = () => {
         return pollData.option;
       case "image-based":
         return await updateImageAndGetLink(pollData.imageOption);
+
       default:
         return [];
     }
@@ -67,6 +68,8 @@ const CreatePoll = () => {
   const handleCreatePoll = async () => {
     const { question, type, option, error, imageOption } = pollData;
     if (!question || !type) {
+      console.log("CREATE:", "Question and Type are required");
+
       handleValueChange("error", "Question & Type are required");
       return;
     }
@@ -92,6 +95,7 @@ const CreatePoll = () => {
 
       if (response) {
         toast.success("Poll Created Successfully");
+        onPollCreateOrDelete();
         clearData();
       }
     } catch (error) {
@@ -99,6 +103,7 @@ const CreatePoll = () => {
         toast.error(error.response.data.message);
         handleValueChange("error", error.response.data.message);
       } else {
+
         handleValueChange("error", "Something went wrong. Please try again.");
 
       }

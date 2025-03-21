@@ -10,6 +10,19 @@ const UserProvider = ({ children }) => {
     const clearUser = () => {
         setUser(null);
     };
+    const updateUserStats = (key, value) => {
+        setUser((prev) => ({
+            ...prev,
+            [key]: value,
+        }));
+    };
+    const onPollCreateOrDelete = (type = "create") => {
+        const totalPollsCreated = user.totalPollsCreated || 0;
+        updateUserStats(
+            "totalPollsCreated",
+            type == "create" ? totalPollsCreated + 1 : totalPollsCreated - 1
+        );
+    };
 
     return (
         <UserContext.Provider
