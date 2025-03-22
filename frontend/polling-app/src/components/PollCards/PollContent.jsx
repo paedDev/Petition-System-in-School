@@ -35,7 +35,7 @@ const PollContent = ({
         <div className="-mt-3">
           <textarea
             placeholder="Your Response"
-            className="w-full text-[13ppx] text-black outline-none bg-slate-200/80 p-2 rounded-md mt-2"
+            className="w-[95%] text-[13ppx] text-black outline-none bg-slate-200/80 p-2 rounded-md mt-2"
             rows={4}
             value={userResponse}
             onChange={({ target }) => onResponseChange(target.value)}
