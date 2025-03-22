@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import useUserAuth from "../../hooks/useUserAuth";
 import { useNavigate } from "react-router-dom";
-import HeaderWithFilter from "../../components/layout/HeaderWithFIlter";
+import HeaderWithFilter from "../../components/layout/HeaderWithFilter";
 import axiosInstance from "../../utils/axiosInstance.js";
 import { API_PATHS } from "../../utils/apiPaths";
 import PollCard from "../../components/PollCards/PollCard.jsx";
