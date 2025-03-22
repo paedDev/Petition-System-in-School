@@ -6,7 +6,10 @@ import HeaderWithFilter from "../../components/layout/HeaderWithFIlter";
 import axiosInstance from "../../utils/axiosInstance.js";
 import { API_PATHS } from "../../utils/apiPaths";
 import PollCard from "../../components/PollCards/PollCard.jsx";
-const PAGE_SIZE = 10;
+import InfiniteScroll from "react-infinite-scroll-component";
+import EmptyCard from "../../components/cards/EmptyCard.jsx";
+import CREATE_ICON from "../../assets/images/uc-logo.jpg";
+const PAGE_SIZE = 3;
 const Home = () => {
   useUserAuth();
 
@@ -43,7 +46,9 @@ const Home = () => {
       setLoading(false);
     }
   };
-
+  const loadMorePolls = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
   useEffect(() => {
     setPage(1);
     fetchAllPolls(1);
@@ -57,31 +62,46 @@ const Home = () => {
     return () => {};
   }, [page]);
   return (
-    <DashboardLayout activeMenu="Dashboard">
+    <DashboardLayout activeMenu="Dashboard" stats={stats || []} showStats>
       <div className="my-5 mx-auto">
         <HeaderWithFilter
-          title="Polls"
+          title="Petition"
           filterType={filterType}
           setFilterType={setFilterType}
         />
-
-        {allPolls.map((poll) => (
-          <PollCard
-            key={`dashboard_${poll._id}`}
-            pollId={poll._id}
-            question={poll.question}
-            type={poll.type}
-            option={poll.option}
-            voters={poll.voters.lengtth || 0}
-            responses={poll.responses || []}
-            creatorProfileImg={poll.creator.profileImageUrl || null}
-            creatorName={poll.creator.fullName}
-            creatorUserID={poll.creator.userID}
-            userHasVoted={poll.userHasVoted || false}
-            isPollClosed={poll.closed || false}
-            createdAt={poll.createdAt || false}
+        {allPolls.length === 0 && !loading && (
+          <EmptyCard
+            imgSrc={CREATE_ICON}
+            message="Welcome! You are the first user of the system, and there are no petition yet. Start by creating the first petition"
+            btnText="Create Poll"
+            onClick={() => navigate("/create-poll")}
           />
-        ))}
+        )}
+        <InfiniteScroll
+          dataLength={allPolls.length}
+          next={loadMorePolls}
+          hasMore={hasMore}
+          loader={<h4 className="info-text">Loading...</h4>}
+          endMessage={<p className="info-text">No more petition to display.</p>}
+        >
+          {allPolls.map((poll) => (
+            <PollCard
+              key={`dashboard_${poll._id}`}
+              pollId={poll._id}
+              question={poll.question}
+              type={poll.type}
+              option={poll.option}
+              voters={poll.voters.length || 0}
+              responses={poll.responses || []}
+              creatorProfileImg={poll.creator.profileImageUrl || null}
+              creatorName={poll.creator.fullName}
+              creatorUserID={poll.creator.userID}
+              userHasVoted={poll.userHasVoted || false}
+              isPollClosed={poll.closed || false}
+              createdAt={poll.createdAt || false}
+            />
+          ))}
+        </InfiniteScroll>
       </div>
     </DashboardLayout>
   );

@@ -21,13 +21,13 @@ export const SIDE_MENU_DATA = [
   },
   {
     id: "03",
-    label: "My Polls",
+    label: "My Petition",
     icon: LuPenTool,
     path: "/my-polls",
   },
   {
     id: "04",
-    label: "Voted Polls",
+    label: "Voted Petition",
     icon: LuBadgeCheck,
     path: "/voted-polls",
   },
