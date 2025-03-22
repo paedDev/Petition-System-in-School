@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useState, useEffect } from "react";
 import { UserContext } from "../../context/UserContext";
 import { getPollBookmarked } from "../../utils/helper";
-import UserProfileInfo from "../cards/serProfileInfo";
+import UserProfileInfo from "../cards/UserProfileInfo";
 import PollActions from "./PollAction";
 import PollContent from "./PollContent";
 import axiosInstance from "../../utils/axiosInstance.js";
